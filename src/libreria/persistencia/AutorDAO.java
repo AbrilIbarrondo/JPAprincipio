@@ -7,56 +7,84 @@ public final class AutorDAO extends DAO {
 
     public void guardar(Autor objeto) {
 
-        conectar();
-        em.getTransaction().begin();
-        em.persist(objeto);
-        em.getTransaction().commit();
-        desconectar();
+        try {
+            conectar();
+            em.getTransaction().begin();
+            em.persist(objeto);
+            em.getTransaction().commit();
+            desconectar();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public Autor editar(Autor objeto) {
 
-        conectar();
-        em.getTransaction().begin();
-        Autor a = em.merge(objeto);
-        em.getTransaction().commit();
-        desconectar();
+        try {
+            conectar();
+            em.getTransaction().begin();
+            Autor a = em.merge(objeto);
+            em.getTransaction().commit();
+            desconectar();
 
-        return a;
+            return a;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public void eliminar(Autor objeto) {
 
-        conectar();
-        em.getTransaction().begin();
-        em.remove(objeto);
-        em.getTransaction().commit();
-        desconectar();
+        try {
+            conectar();
+            em.getTransaction().begin();
+            em.remove(objeto);
+            em.getTransaction().commit();
+            desconectar();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public Autor buscarPorID(String id) {
 
-        return em.find(Autor.class, id);
+        try {
+            return em.find(Autor.class, id);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public Autor buscarID2(String id) {
 
-        Autor a = (Autor) em.createQuery("SELECT a FROM Autor a WHERE A.id LIKE :id")
-                .setParameter("id", id)
-                .getSingleResult();
+        try {
+            Autor a = (Autor) em.createQuery("SELECT a FROM Autor a WHERE A.id LIKE :id")
+                    .setParameter("id", id)
+                    .getSingleResult();
 
-        return a;
+            return a;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public List<Autor> listarTodo() {
 
-        return em.createQuery("SELECT a FROM Autor a").getResultList();
+        try {
+            return em.createQuery("SELECT a FROM Autor a").getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
     }
-    
+
     public List<Autor> listarPorNombre(String nombre) {
-        
-        return (List<Autor>) em.createQuery("SELECT a FROM Autor a WHERE a.nombre LIKE :nombre")
-                .setParameter("nombre", "%" + nombre + "%")
-                .getResultList();
+
+        try {
+            return (List<Autor>) em.createQuery("SELECT a FROM Autor a WHERE a.nombre LIKE :nombre")
+                    .setParameter("nombre", "%" + nombre + "%")
+                    .getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }

@@ -1,4 +1,3 @@
-
 package libreria.persistencia;
 
 import java.util.List;
@@ -6,63 +5,91 @@ import libreria.entidades.Autor;
 import libreria.entidades.Editorial;
 import libreria.entidades.Libro;
 
-
 public final class LibroDAO extends DAO {
-    
-     public void guardar(Libro objeto) {
-        
-        conectar();
-        em.getTransaction().begin();
-        em.persist(objeto);
-        em.getTransaction().commit();
-        desconectar();
+
+    public void guardar(Libro objeto) {
+
+        try {
+
+            conectar();
+            em.getTransaction().begin();
+            em.persist(objeto);
+            em.getTransaction().commit();
+            desconectar();
+
+        } catch (Exception e) {
+            throw e;
+        }
     }
-    
+
     public Libro editar(Libro objeto) {
-        
-        conectar();
-        em.getTransaction().begin();
-        Libro a = em.merge(objeto);
-        em.getTransaction().commit();
-        desconectar();
-        
-        return a;
+
+        try {
+            conectar();
+            em.getTransaction().begin();
+            Libro a = em.merge(objeto);
+            em.getTransaction().commit();
+            desconectar();
+
+            return a;
+        } catch (Exception e) {
+            throw e;
+        }
     }
-    
+
     public void eliminar(Libro objeto) {
-        
-        conectar();
-        em.getTransaction().begin();
-        em.remove(objeto);
-        em.getTransaction().commit();
-        desconectar();
+
+        try {
+            conectar();
+            em.getTransaction().begin();
+            em.remove(objeto);
+            em.getTransaction().commit();
+            desconectar();
+        } catch (Exception e) {
+            throw e;
+        }
     }
-    
+
     public Libro buscarPorISBN(String isbn) {
 
-        return em.find(Libro.class, isbn);
+        try {
+            return em.find(Libro.class, isbn);
+        } catch (Exception e) {
+            throw e;
+        }
     }
-    
+
     public List<Libro> listarPorTitulo(String titulo) {
-        
-        return (List<Libro>) em.createQuery("SELECT a FROM Libro a WHERE a.titulo LIKE :titulo")
-                .setParameter("titulo", "%" + titulo + "%")
-                .getResultList();
+
+        try {
+            return (List<Libro>) em.createQuery("SELECT a FROM Libro a WHERE a.titulo LIKE :titulo")
+                    .setParameter("titulo", "%" + titulo + "%")
+                    .getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
     }
-    
+
     public List<Libro> listarPorAutor(Autor autor) {
-        
-        return (List<Libro>) em.createQuery("SELECT a FROM Libro a WHERE a.autor LIKE :autor")
-                .setParameter("autor", "%" + autor + "%")
-                .getResultList();
+
+        try {
+            return (List<Libro>) em.createQuery("SELECT a FROM Libro a WHERE a.autor LIKE :autor")
+                    .setParameter("autor", "%" + autor + "%")
+                    .getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
     }
-    
-    public List<Libro> listarPorAutor(Editorial edit) {
-        
-        return (List<Libro>) em.createQuery("SELECT a FROM Libro a WHERE a.adit LIKE :edit")
-                .setParameter("edit", "%" + edit + "%")
-                .getResultList();
+
+    public List<Libro> listarPorEditorial(Editorial edit) {
+
+        try {
+            return (List<Libro>) em.createQuery("SELECT a FROM Libro a WHERE a.edit LIKE :edit")
+                    .setParameter("edit", "%" + edit + "%")
+                    .getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
     }
-    
-    
+
 }

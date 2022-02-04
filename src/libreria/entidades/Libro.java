@@ -11,6 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -27,32 +31,25 @@ public class Libro implements Serializable {
     @Column
     private String titulo;
 
-    @Column
-
+    @Temporal(TemporalType.DATE)
     private Integer anio;
 
     @Column
-
     private Integer ejemplares;
 
     @Column
-
     private Integer ejemplaresPrestados;
 
     @Column
-
     private Integer ejemplaresRestantes;
 
     @Column
-
     private boolean alta;
 
-    @Column
-
+    @ManyToOne
     private Autor autor;
 
-    @Column
-
+    @ManyToOne
     private Editorial editorial;
 
     public Libro(String isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, boolean alta, Autor autor, Editorial editorial) {
