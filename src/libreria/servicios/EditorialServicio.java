@@ -15,14 +15,14 @@ public class EditorialServicio {
         }
     }
 
-    public void crear(String nombre, String id) {
+    public void crear(String nombre, String id, Boolean alta) {
 
         try {
             Editorial a = new Editorial();
 
             a.setId(id);
             a.setNombre(nombre);
-
+            a.setAlta(alta);
             dao.guardar(a);
         } catch (Exception e) {
             throw e;
@@ -43,15 +43,27 @@ public class EditorialServicio {
         }
     }
 
-    public void eliminar(String nombre, String id) {
+    public void eliminar(String nombre) {
+
+        try {
+            Editorial a = new Editorial();
+
+            a.setNombre(nombre);
+
+            dao.eliminar(a);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public Editorial buscarPorID(String id) {
 
         try {
             Editorial a = new Editorial();
 
             a.setId(id);
-            a.setNombre(nombre);
 
-            dao.eliminar(a);
+           return  dao.buscarPorID(id);
         } catch (Exception e) {
             throw e;
         }

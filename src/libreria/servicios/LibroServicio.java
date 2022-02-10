@@ -1,5 +1,6 @@
 package libreria.servicios;
 
+import java.util.List;
 import libreria.entidades.Autor;
 import libreria.entidades.Editorial;
 import libreria.entidades.Libro;
@@ -17,7 +18,7 @@ public class LibroServicio {
         }
     }
 
-    public void crear(String titulo, String isbn, Integer anio, Autor autor, Editorial edit) {
+    public void crear(String titulo, String isbn, Integer anio, Integer ejemplares,Autor autor, Editorial edit) {
 
         try {
             Libro a = new Libro();
@@ -27,7 +28,8 @@ public class LibroServicio {
             a.setAnio(anio);
             a.setAutor(autor);
             a.setEditorial(edit);
-
+            a.setEjemplares(ejemplares);
+            a.setAlta(true);
             dao.guardar(a);
         } catch (Exception e) {
             throw e;
@@ -48,12 +50,11 @@ public class LibroServicio {
         }
     }
 
-    public void eliminar(String titulo, String isbn) {
+    public void eliminar(String titulo) {
 
         try {
             Libro a = new Libro();
 
-            a.setIsbn(isbn);
             a.setTitulo(titulo);
 
             dao.eliminar(a);
@@ -75,14 +76,14 @@ public class LibroServicio {
         }
     }
 
-    public void listarTitulo(String titulo) {
+    public List<Libro> listarTitulo(String titulo) {
 
         try {
             Libro a = new Libro();
 
             a.setTitulo(titulo);
 
-            dao.listarPorTitulo(titulo);
+            return dao.listarPorTitulo(titulo);
         } catch (Exception e) {
             throw e;
         }
@@ -109,6 +110,20 @@ public class LibroServicio {
             a.setEditorial(edit);
 
             dao.listarPorEditorial(edit);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public void listar() {
+
+        try {
+
+            List<Libro> listar = dao.listar();
+            
+            for (Libro libro : listar) {
+                System.out.println(libro);
+            }
         } catch (Exception e) {
             throw e;
         }

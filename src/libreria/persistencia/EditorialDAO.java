@@ -44,4 +44,13 @@ public final class EditorialDAO extends DAO {
             throw e;
         }
     }
+    
+     public Editorial buscarPorID(String id) {
+
+        try {
+            return em.find(Editorial.class, id);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

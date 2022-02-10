@@ -15,13 +15,14 @@ public class AutorServicio {
         }
     }
 
-    public void crear(String nombre, String id) {
+    public void crear(String nombre, String id, Boolean alta) {
 
         try {
             Autor a = new Autor();
 
             a.setId(id);
             a.setNombre(nombre);
+            a.setAlta(alta);
 
             dao.guardar(a);
         } catch (Exception e) {
@@ -43,12 +44,11 @@ public class AutorServicio {
         }
     }
 
-    public void eliminar(String nombre, String id) {
+    public void eliminar(String nombre) {
 
         try {
             Autor a = new Autor();
 
-            a.setId(id);
             a.setNombre(nombre);
 
             dao.eliminar(a);
@@ -57,17 +57,19 @@ public class AutorServicio {
         }
     }
 
-    public void buscarPorID(String id) {
+    public Autor buscarPorID(String id) {
 
         try {
             Autor a = new Autor();
 
             a.setId(id);
 
-            dao.buscarPorID(id);
+            return dao.buscarPorID(id);
+            
         } catch (Exception e) {
             throw e;
         }
+        
     }
 
     public void listar() {

@@ -92,4 +92,13 @@ public final class LibroDAO extends DAO {
         }
     }
 
+    public List<Libro> listar() {
+
+        try {
+            return (List<Libro>) em.createQuery("SELECT a FROM Libro a")
+                    .getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }
